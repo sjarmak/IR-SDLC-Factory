@@ -1,0 +1,27 @@
+# IR-SDLC-Factory Requirements
+# Core dependencies for IR evaluation on SDLC tasks
+
+# Data processing
+requests>=2.31.0
+urllib3>=2.0.0
+
+# CLI and logging
+loguru>=0.7.0
+
+# Data serialization
+tomlkit>=0.13.0
+
+# GitHub API
+PyGithub>=2.1.0
+
+# Type hints and dataclasses (Python 3.10+)
+typing_extensions>=4.0.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Optional: LLM model support
+# openai>=1.0.0
+# anthropic>=0.18.0
+# google-generativeai>=0.4.0
