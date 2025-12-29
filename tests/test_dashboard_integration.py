@@ -392,5 +392,297 @@ class TestCodeContextBenchExporter:
         assert len(run_id) > len("IR-SDLC_")
 
 
+class TestHarborTaskDirectoryExport:
+    """Test Harbor-compatible task directory generation."""
+    
+    def test_export_task_directory_creates_all_files(self):
+        """Test that export_task_directory creates task.toml, Dockerfile, test.sh."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            task = {
+                "task_id": "test-task-001",
+                "task_type": "bug_triage",
+                "repo_name": "test/repo",
+                "repo_url": "https://github.com/test/repo",
+                "commit_hash": "abc123def456",
+                "difficulty": "medium",
+                "scenario": "Fix the authentication bug in the login module.",
+                "vague_prompt": "Fix auth bug",
+                "category": "A",
+                "tags": ["auth", "security"],
+                "evaluation_criteria": {
+                    "scoring_rubric": {
+                        "identifies_bug": 0.4,
+                        "fixes_correctly": 0.6,
+                    },
+                    "success_signals": ["Finds auth module", "Patches vulnerability"],
+                    "failure_signals": ["Breaks existing tests"],
+                },
+                "ground_truth": {
+                    "relevant_code": ["src/auth/login.py", "src/auth/session.py"],
+                },
+            }
+            
+            task_dir = exporter.export_task_directory(task)
+            
+            # Check all files exist
+            assert task_dir.exists()
+            assert (task_dir / "task.toml").exists()
+            assert (task_dir / "Dockerfile").exists()
+            assert (task_dir / "test.sh").exists()
+            assert (task_dir / "task_metadata.json").exists()
+    
+    def test_task_toml_contains_required_sections(self):
+        """Test that task.toml has all required Harbor sections."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            task = {
+                "task_id": "toml-test-001",
+                "task_type": "code_review",
+                "repo_name": "kubernetes/kubernetes",
+                "repo_url": "https://github.com/kubernetes/kubernetes",
+                "commit_hash": "v1.28.0",
+                "difficulty": "hard",
+                "scenario": "Review the scheduler changes.",
+                "vague_prompt": "Review scheduler",
+                "category": "B",
+                "tags": ["scheduler", "review"],
+                "evaluation_criteria": {
+                    "scoring_rubric": {"review_quality": 0.5, "issue_detection": 0.5},
+                },
+                "ground_truth": {
+                    "relevant_code": ["pkg/scheduler/scheduler.go"],
+                },
+            }
+            
+            task_dir = exporter.export_task_directory(task)
+            toml_path = task_dir / "task.toml"
+            
+            with open(toml_path) as f:
+                content = f.read()
+            
+            # Check required sections
+            assert "[task]" in content
+            assert "[repository]" in content
+            assert "[prompt]" in content
+            assert "[sdlc]" in content
+            assert "[evaluation]" in content
+            assert "[ground_truth]" in content
+            
+            # Check values
+            assert 'id = "toml-test-001"' in content
+            assert 'type = "code_review"' in content
+            assert 'name = "kubernetes/kubernetes"' in content
+            assert 'commit = "v1.28.0"' in content
+    
+    def test_dockerfile_clones_repo_at_commit(self):
+        """Test that Dockerfile clones repo at specific commit."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            task = {
+                "task_id": "docker-test-001",
+                "task_type": "debugging",
+                "repo_name": "grafana/grafana",
+                "repo_url": "https://github.com/grafana/grafana",
+                "commit_hash": "abc123specific",
+                "difficulty": "medium",
+            }
+            
+            task_dir = exporter.export_task_directory(task)
+            dockerfile_path = task_dir / "Dockerfile"
+            
+            with open(dockerfile_path) as f:
+                content = f.read()
+            
+            # Check git clone command
+            assert "git clone https://github.com/grafana/grafana repo" in content
+            assert "git checkout abc123specific" in content
+            
+            # Check it includes common tools
+            assert "apt-get" in content or "apk add" in content
+            assert "git" in content
+            assert "jq" in content
+    
+    def test_dockerfile_uses_appropriate_base_image(self):
+        """Test that Dockerfile selects appropriate base image for repo type."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            # Go repo (kubernetes)
+            go_task = {
+                "task_id": "go-task-001",
+                "repo_name": "kubernetes/kubernetes",
+                "repo_url": "https://github.com/kubernetes/kubernetes",
+                "commit_hash": "HEAD",
+                "tags": ["go"],
+            }
+            
+            go_dir = exporter.export_task_directory(go_task)
+            with open(go_dir / "Dockerfile") as f:
+                go_content = f.read()
+            assert "golang:" in go_content
+            
+            # TypeScript repo (vscode)
+            ts_task = {
+                "task_id": "ts-task-001",
+                "repo_name": "microsoft/vscode",
+                "repo_url": "https://github.com/microsoft/vscode",
+                "commit_hash": "HEAD",
+                "tags": ["typescript"],
+            }
+            
+            ts_dir = exporter.export_task_directory(ts_task)
+            with open(ts_dir / "Dockerfile") as f:
+                ts_content = f.read()
+            assert "node:" in ts_content
+            
+            # Java repo (elasticsearch)
+            java_task = {
+                "task_id": "java-task-001",
+                "repo_name": "elastic/elasticsearch",
+                "repo_url": "https://github.com/elastic/elasticsearch",
+                "commit_hash": "HEAD",
+                "tags": ["java"],
+            }
+            
+            java_dir = exporter.export_task_directory(java_task)
+            with open(java_dir / "Dockerfile") as f:
+                java_content = f.read()
+            assert "temurin" in java_content or "openjdk" in java_content
+    
+    def test_test_script_captures_ir_metrics(self):
+        """Test that test.sh captures IR impact metrics."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            task = {
+                "task_id": "metrics-test-001",
+                "task_type": "architecture_understanding",
+                "repo_name": "test/repo",
+                "repo_url": "https://github.com/test/repo",
+                "commit_hash": "HEAD",
+                "evaluation_criteria": {
+                    "scoring_rubric": {
+                        "understanding": 0.5,
+                        "accuracy": 0.5,
+                    },
+                },
+                "ground_truth": {
+                    "relevant_code": ["src/core/module.py", "src/core/handler.py"],
+                },
+            }
+            
+            task_dir = exporter.export_task_directory(task)
+            test_sh_path = task_dir / "test.sh"
+            
+            with open(test_sh_path) as f:
+                content = f.read()
+            
+            # Check script header
+            assert "#!/bin/bash" in content
+            assert "metrics-test-001" in content
+            
+            # Check IR metrics capture
+            assert "IR_QUERIES_MADE" in content
+            assert "IR_FILES_RETRIEVED" in content
+            assert "PRECISION" in content
+            assert "RECALL" in content
+            
+            # Check ground truth files are embedded
+            assert "src/core/module.py" in content
+            assert "src/core/handler.py" in content
+            
+            # Check scoring rubric is embedded
+            assert "understanding" in content
+            assert "0.5" in content
+            
+            # Check output format
+            assert "METRICS_FILE" in content
+            assert "metrics.json" in content
+    
+    def test_test_script_is_executable(self):
+        """Test that test.sh has executable permissions."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            task = {
+                "task_id": "exec-test-001",
+                "repo_name": "test/repo",
+                "repo_url": "https://github.com/test/repo",
+                "commit_hash": "HEAD",
+            }
+            
+            task_dir = exporter.export_task_directory(task)
+            test_sh_path = task_dir / "test.sh"
+            
+            import os
+            import stat
+            
+            mode = os.stat(test_sh_path).st_mode
+            assert mode & stat.S_IXUSR  # User execute
+    
+    def test_export_task_from_task_result(self):
+        """Test exporting from IRSDLCTaskResult dataclass."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            result = IRSDLCTaskResult(
+                task_id="result-test-001",
+                task_title="Test from dataclass",
+                sdlc_type=SDLCTaskType.BUG_TRIAGE,
+                repo_name="test/repo",
+                repo_url="https://github.com/test/repo",
+                commit_hash="abc123",
+                difficulty="easy",
+                ir_tool_type=IRToolType.DEEP_SEARCH,
+                ir_tool_name="DeepSearch",
+                agent_import_path="agents:DeepSearch",
+                model_name="claude",
+                ground_truth_files=["src/bug.py"],
+            )
+            
+            task_dir = exporter.export_task_directory(result)
+            
+            assert task_dir.exists()
+            assert (task_dir / "task.toml").exists()
+            
+            # Check metadata JSON was created from result
+            with open(task_dir / "task_metadata.json") as f:
+                metadata = json.load(f)
+            
+            assert metadata["task_id"] == "result-test-001"
+            assert metadata["sdlc_type"] == "bug_triage"
+    
+    def test_export_benchmark_tasks_from_jsonl(self):
+        """Test exporting all tasks from a benchmark JSONL file."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            exporter = CodeContextBenchExporter(tmpdir)
+            
+            # Create a test JSONL file
+            jsonl_path = Path(tmpdir) / "test_benchmark.jsonl"
+            tasks = [
+                {"task_id": "jsonl-001", "repo_name": "a/a", "repo_url": "https://github.com/a/a", "commit_hash": "HEAD"},
+                {"task_id": "jsonl-002", "repo_name": "b/b", "repo_url": "https://github.com/b/b", "commit_hash": "HEAD"},
+                {"task_id": "jsonl-003", "repo_name": "c/c", "repo_url": "https://github.com/c/c", "commit_hash": "HEAD"},
+            ]
+            
+            with open(jsonl_path, "w") as f:
+                for task in tasks:
+                    f.write(json.dumps(task) + "\n")
+            
+            # Export all tasks
+            task_dirs = exporter.export_benchmark_tasks(jsonl_path)
+            
+            assert len(task_dirs) == 3
+            for task_dir in task_dirs:
+                assert task_dir.exists()
+                assert (task_dir / "task.toml").exists()
+                assert (task_dir / "Dockerfile").exists()
+                assert (task_dir / "test.sh").exists()
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
