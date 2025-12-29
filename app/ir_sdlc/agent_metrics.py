@@ -19,9 +19,12 @@ import math
 import statistics
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from app.ir_sdlc.metrics import IRMetrics
+
+if TYPE_CHECKING:
+    from app.ir_sdlc.dashboard_schema import LLMJudgeScore
 
 
 class TaskCompletionStatus(Enum):
@@ -76,6 +79,15 @@ class AgentExecutionTrace:
     
     # Associated IR metrics (if available)
     ir_metrics: Optional[IRMetrics] = None
+    
+    # LLM judge evaluation (if available)
+    llm_judge_score: Optional["LLMJudgeScore"] = None
+    
+    # Code diffs for LLM judge evaluation
+    agent_diff: Optional[str] = None
+    ground_truth_diff: Optional[str] = None
+    test_output: Optional[str] = None
+    task_description: Optional[str] = None
     
     # Metadata
     error_message: Optional[str] = None
@@ -567,6 +579,10 @@ class AgentMetrics:
     ir_success_correlation: dict = field(default_factory=dict)
     ir_correctness_correlation: dict = field(default_factory=dict)
     
+    # LLM judge metrics (optional, computed separately)
+    llm_judge_scores: dict = field(default_factory=dict)
+    llm_judge_aggregate: dict = field(default_factory=dict)
+    
     # Task counts
     total_tasks: int = 0
     successful_tasks: int = 0
@@ -659,6 +675,10 @@ class AgentMetrics:
             "ir_success_correlation": self.ir_success_correlation,
             "ir_correctness_correlation": self.ir_correctness_correlation,
             
+            # LLM judge metrics
+            "llm_judge_scores": self.llm_judge_scores,
+            "llm_judge_aggregate": self.llm_judge_aggregate,
+            
             # Counts
             "total_tasks": self.total_tasks,
             "successful_tasks": self.successful_tasks,
@@ -667,7 +687,7 @@ class AgentMetrics:
 
     def to_summary_dict(self) -> dict:
         """Convert to a summary dictionary with key metrics only."""
-        return {
+        summary = {
             "task_completion_rate": self.task_completion_rate,
             "test_pass_rate": self.test_pass_rate,
             "average_correctness_score": self.average_correctness_score,
@@ -678,6 +698,14 @@ class AgentMetrics:
             "total_tasks": self.total_tasks,
             "successful_tasks": self.successful_tasks,
         }
+        
+        # Include LLM judge aggregate scores if available
+        if self.llm_judge_aggregate:
+            summary["llm_judge_overall"] = self.llm_judge_aggregate.get("overall", {}).get("mean", 0.0)
+            summary["llm_judge_correctness"] = self.llm_judge_aggregate.get("correctness", {}).get("mean", 0.0)
+            summary["llm_judge_quality"] = self.llm_judge_aggregate.get("quality", {}).get("mean", 0.0)
+        
+        return summary
 
     def get_primary_score(self, metric: str = "task_completion_rate") -> float:
         """Get a single primary score for ranking agents/IR tools."""
@@ -687,8 +715,29 @@ class AgentMetrics:
             "average_correctness_score": self.average_correctness_score,
             "token_efficiency": self.token_efficiency,
             "time_efficiency": self.time_efficiency,
+            "llm_judge_overall": self.llm_judge_aggregate.get("overall", {}).get("mean", 0.0),
         }
         return metrics_map.get(metric, self.task_completion_rate)
+    
+    def add_llm_judge_results(
+        self,
+        judge_results: list,
+    ) -> None:
+        """
+        Add LLM judge evaluation results to this metrics container.
+        
+        Args:
+            judge_results: List of JudgeResult objects from llm_judge module
+        """
+        from app.ir_sdlc.llm_judge import compute_judge_aggregate_scores
+        
+        # Store individual scores by task_id
+        self.llm_judge_scores = {
+            r.task_id: r.to_dict() for r in judge_results
+        }
+        
+        # Compute aggregate statistics
+        self.llm_judge_aggregate = compute_judge_aggregate_scores(judge_results)
 
 
 def compare_ir_tool_impact(
