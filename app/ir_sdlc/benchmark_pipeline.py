@@ -1406,7 +1406,7 @@ def main():
     )
     parser.add_argument(
         "repos",
-        nargs="+",
+        nargs="*",
         help="Repository names in owner/repo format",
     )
     parser.add_argument(
@@ -1427,6 +1427,28 @@ def main():
         default=["bug_triage", "code_review"],
         help="Task types to generate",
     )
+    parser.add_argument(
+        "--use-selector",
+        action="store_true",
+        help="Use enterprise repo selector to find repos automatically",
+    )
+    parser.add_argument(
+        "--selector-orgs",
+        nargs="+",
+        help="Organizations to scan with selector",
+    )
+    parser.add_argument(
+        "--min-loc",
+        type=int,
+        default=500_000,
+        help="Minimum LOC for repo selection",
+    )
+    parser.add_argument(
+        "--max-repos",
+        type=int,
+        default=10,
+        help="Maximum repos to select",
+    )
     
     args = parser.parse_args()
     
@@ -1434,6 +1456,41 @@ def main():
     token = os.environ.get("GITHUB_TOKEN")
     if not token:
         print("Error: GITHUB_TOKEN environment variable required")
+        return 1
+    
+    # Determine repos to use
+    repos = args.repos
+    
+    if args.use_selector or not repos:
+        # Use repo selector to find enterprise repos
+        from app.ir_sdlc.repo_selector import (
+            EnterpriseRepoSelector,
+            SelectionCriteria,
+        )
+        
+        print("Using enterprise repo selector...")
+        selector = EnterpriseRepoSelector(
+            github_token=token,
+            compute_loc=False,  # Use estimates for speed
+        )
+        
+        candidates = selector.discover_candidates(
+            orgs=args.selector_orgs,
+            repos=repos if repos else None,
+        )
+        
+        criteria = SelectionCriteria(min_loc=args.min_loc)
+        selected = selector.select_repos(
+            candidates,
+            criteria=criteria,
+            max_total=args.max_repos,
+        )
+        
+        repos = [c.full_name for c in selected]
+        print(f"Selected {len(repos)} repos: {repos}")
+    
+    if not repos:
+        print("No repositories to process. Use --use-selector or provide repo names.")
         return 1
     
     # Initialize pipeline
@@ -1446,15 +1503,15 @@ def main():
     task_types = [SDLCTaskType(t) for t in args.task_types]
     
     # Generate tasks
-    if len(args.repos) == 1:
+    if len(repos) == 1:
         dataset = pipeline.generate_from_repo(
-            repo=args.repos[0],
+            repo=repos[0],
             task_types=task_types,
             max_tasks_per_type=args.max_tasks,
         )
     else:
         dataset = pipeline.generate_from_repos(
-            repos=args.repos,
+            repos=repos,
             task_types=task_types,
             max_tasks_per_repo=args.max_tasks,
         )
