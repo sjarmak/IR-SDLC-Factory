@@ -1,0 +1,10 @@
+{
+  "source_repos": [
+    "grafana/grafana",
+    "kubernetes/kubernetes",
+    "microsoft/vscode",
+    "elastic/elasticsearch",
+    "spring-projects/spring-boot"
+  ],
+  "generated_at": "2025-12-29T17:30:41.007074+00:00"
+}
