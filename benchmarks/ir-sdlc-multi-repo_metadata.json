@@ -1,10 +1,38 @@
 {
+  "name": "ir-sdlc-multi-repo",
+  "version": "1.0.0",
+  "description": "Enterprise-scale IR benchmark for SDLC tasks",
   "source_repos": [
+    "elastic/elasticsearch",
     "grafana/grafana",
     "kubernetes/kubernetes",
     "microsoft/vscode",
-    "elastic/elasticsearch",
     "spring-projects/spring-boot"
   ],
-  "generated_at": "2025-12-29T17:30:41.007074+00:00"
+  "generated_at": "2025-12-29T17:52:58.936975+00:00",
+  "task_count": 53,
+  "task_types": {
+    "code_review": 30,
+    "bug_triage": 7,
+    "feature_location": 7,
+    "dependency_analysis": 4,
+    "security_audit": 3,
+    "architecture_understanding": 2
+  },
+  "difficulty_distribution": {
+    "hard": 27,
+    "expert": 19,
+    "medium": 7
+  },
+  "sdlc_coverage": {
+    "design": 6,
+    "implementation": 37,
+    "testing": 0,
+    "security": 3,
+    "maintenance": 7
+  },
+  "ir_focus": {
+    "cross_file_tasks": 43,
+    "enterprise_repos": 4
+  }
 }
