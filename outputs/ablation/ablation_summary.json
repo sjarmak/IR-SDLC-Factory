@@ -1,0 +1,222 @@
+{
+  "generated_at": "2025-12-29T19:42:13.835882+00:00",
+  "experiments": {
+    "baseline_vs_deep_search": {
+      "experiment_id": "baseline_vs_deep_search",
+      "experiment_name": "baseline_vs_deep_search",
+      "total_tasks": 10,
+      "overall_winner": "tie",
+      "treatment_win_rate": 0.4,
+      "baseline_win_rate": 0.3,
+      "tie_rate": 0.3,
+      "significant_improvements": [],
+      "significant_regressions": [
+        "tokens",
+        "duration_sec"
+      ],
+      "key_metrics": {
+        "success_rate": {
+          "baseline_mean": 0.3,
+          "treatment_mean": 0.4,
+          "percent_improvement": 33.33333333333335,
+          "is_significant": false
+        },
+        "reward": {
+          "baseline_mean": 0.5,
+          "treatment_mean": 0.6,
+          "percent_improvement": 19.999999999999996,
+          "is_significant": false
+        },
+        "tokens": {
+          "baseline_mean": 10125.0,
+          "treatment_mean": 7847.0,
+          "percent_improvement": -22.498765432098764,
+          "is_significant": true
+        },
+        "duration_sec": {
+          "baseline_mean": 226.36209633904969,
+          "treatment_mean": 136.87472283688066,
+          "percent_improvement": -39.532843594155906,
+          "is_significant": true
+        },
+        "ir_queries": {
+          "baseline_mean": 0.0,
+          "treatment_mean": 0.0,
+          "percent_improvement": 0.0,
+          "is_significant": false
+        },
+        "llm_score": {
+          "baseline_mean": 0.5530614390487426,
+          "treatment_mean": 0.6060015509123403,
+          "percent_improvement": 9.572193634518058,
+          "is_significant": false
+        }
+      }
+    },
+    "baseline_vs_sourcegraph_full": {
+      "experiment_id": "baseline_vs_sourcegraph_full",
+      "experiment_name": "baseline_vs_sourcegraph_full",
+      "total_tasks": 10,
+      "overall_winner": "treatment",
+      "treatment_win_rate": 0.5,
+      "baseline_win_rate": 0.3,
+      "tie_rate": 0.2,
+      "significant_improvements": [],
+      "significant_regressions": [
+        "tokens",
+        "duration_sec"
+      ],
+      "key_metrics": {
+        "success_rate": {
+          "baseline_mean": 0.4,
+          "treatment_mean": 0.6,
+          "percent_improvement": 49.999999999999986,
+          "is_significant": false
+        },
+        "reward": {
+          "baseline_mean": 0.7,
+          "treatment_mean": 0.77,
+          "percent_improvement": 10.000000000000009,
+          "is_significant": false
+        },
+        "tokens": {
+          "baseline_mean": 8429.9,
+          "treatment_mean": 6421.6,
+          "percent_improvement": -23.823532900746148,
+          "is_significant": true
+        },
+        "duration_sec": {
+          "baseline_mean": 200.28278552279565,
+          "treatment_mean": 159.93670715221123,
+          "percent_improvement": -20.14455624095179,
+          "is_significant": true
+        },
+        "ir_queries": {
+          "baseline_mean": 0.0,
+          "treatment_mean": 0.0,
+          "percent_improvement": 0.0,
+          "is_significant": false
+        },
+        "llm_score": {
+          "baseline_mean": 0.5761992801126552,
+          "treatment_mean": 0.6247904655075687,
+          "percent_improvement": 8.433052083198229,
+          "is_significant": false
+        }
+      }
+    },
+    "deep_search_vs_sourcegraph_full": {
+      "experiment_id": "deep_search_vs_sourcegraph_full",
+      "experiment_name": "deep_search_vs_sourcegraph_full",
+      "total_tasks": 10,
+      "overall_winner": "treatment",
+      "treatment_win_rate": 0.6,
+      "baseline_win_rate": 0.2,
+      "tie_rate": 0.2,
+      "significant_improvements": [],
+      "significant_regressions": [
+        "tokens"
+      ],
+      "key_metrics": {
+        "success_rate": {
+          "baseline_mean": 0.4,
+          "treatment_mean": 0.7,
+          "percent_improvement": 74.99999999999997,
+          "is_significant": false
+        },
+        "reward": {
+          "baseline_mean": 0.7,
+          "treatment_mean": 0.88,
+          "percent_improvement": 25.714285714285722,
+          "is_significant": false
+        },
+        "tokens": {
+          "baseline_mean": 7641.2,
+          "treatment_mean": 6572.6,
+          "percent_improvement": -13.984714442757676,
+          "is_significant": true
+        },
+        "duration_sec": {
+          "baseline_mean": 173.5027282781032,
+          "treatment_mean": 160.23366671594104,
+          "percent_improvement": -7.647753838714004,
+          "is_significant": false
+        },
+        "ir_queries": {
+          "baseline_mean": 0.0,
+          "treatment_mean": 0.0,
+          "percent_improvement": 0.0,
+          "is_significant": false
+        },
+        "llm_score": {
+          "baseline_mean": 0.5667163502342499,
+          "treatment_mean": 0.7427166869482306,
+          "percent_improvement": 31.056160042185404,
+          "is_significant": false
+        }
+      }
+    }
+  },
+  "rankings": {
+    "success_rate": [
+      {
+        "agent": "SourcegraphFullAgent",
+        "experiment": "deep_search_vs_sourcegraph_full",
+        "improvement_pct": 74.99999999999997,
+        "is_significant": false
+      },
+      {
+        "agent": "SourcegraphFullAgent",
+        "experiment": "baseline_vs_sourcegraph_full",
+        "improvement_pct": 49.999999999999986,
+        "is_significant": false
+      },
+      {
+        "agent": "DeepSearchAgent",
+        "experiment": "baseline_vs_deep_search",
+        "improvement_pct": 33.33333333333335,
+        "is_significant": false
+      }
+    ],
+    "llm_score": [
+      {
+        "agent": "SourcegraphFullAgent",
+        "experiment": "deep_search_vs_sourcegraph_full",
+        "improvement_pct": 31.056160042185404,
+        "is_significant": false
+      },
+      {
+        "agent": "DeepSearchAgent",
+        "experiment": "baseline_vs_deep_search",
+        "improvement_pct": 9.572193634518058,
+        "is_significant": false
+      },
+      {
+        "agent": "SourcegraphFullAgent",
+        "experiment": "baseline_vs_sourcegraph_full",
+        "improvement_pct": 8.433052083198229,
+        "is_significant": false
+      }
+    ],
+    "tokens": [
+      {
+        "agent": "SourcegraphFullAgent",
+        "experiment": "deep_search_vs_sourcegraph_full",
+        "improvement_pct": -13.984714442757676,
+        "is_significant": true
+      },
+      {
+        "agent": "DeepSearchAgent",
+        "experiment": "baseline_vs_deep_search",
+        "improvement_pct": -22.498765432098764,
+        "is_significant": true
+      },
+      {
+        "agent": "SourcegraphFullAgent",
+        "experiment": "baseline_vs_sourcegraph_full",
+        "improvement_pct": -23.823532900746148,
+        "is_significant": true
+      }
+    ]
+  }
+}

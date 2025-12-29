@@ -1,0 +1,525 @@
+{
+  "experiment_id": "baseline_vs_deep_search",
+  "experiment_name": "baseline_vs_deep_search",
+  "config": {
+    "experiment_id": "baseline_vs_deep_search",
+    "experiment_name": "baseline_vs_deep_search",
+    "description": "Comparison of BaselineAgent vs DeepSearchAgent",
+    "comparison_type": "baseline_vs_mcp",
+    "baseline": {
+      "tool_type": "baseline",
+      "agent_name": "BaselineAgent",
+      "import_path": ""
+    },
+    "treatment": {
+      "tool_type": "deep_search",
+      "agent_name": "DeepSearchAgent",
+      "import_path": ""
+    },
+    "model_name": "anthropic/claude-haiku-4-5-20251001",
+    "tasks_to_run": [],
+    "num_trials_per_task": 1,
+    "timeout_seconds": 300,
+    "significance_level": 0.05,
+    "min_effect_size": 0.1
+  },
+  "started_at": "2025-12-29T19:42:13.753476+00:00",
+  "completed_at": "2025-12-29T19:42:13.778900+00:00",
+  "task_comparisons": [
+    {
+      "task_id": "kubernetes__kubernetes-requirement_disambiguation-434760bc461f",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": true,
+        "reward": 1.0,
+        "tokens": 9268,
+        "duration_sec": 253.13275231480236,
+        "ir_queries": 0,
+        "llm_score": 0.877193800895884
+      },
+      "treatment": {
+        "success": true,
+        "reward": 1.0,
+        "tokens": 8248,
+        "duration_sec": 127.75466938547818,
+        "ir_queries": 0,
+        "llm_score": 0.8501067588891982
+      },
+      "deltas": {
+        "reward_delta": 0.0,
+        "token_efficiency": 0.110056107034959,
+        "time_efficiency": 0.49530565200587234,
+        "query_efficiency": 0.0
+      },
+      "winner": "tie",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "grafana__grafana-architecture_delta-5ea749b7d0cb",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": false,
+        "reward": 0.4,
+        "tokens": 9851,
+        "duration_sec": 271.51855232633613,
+        "ir_queries": 0,
+        "llm_score": 0.6382945144720897
+      },
+      "treatment": {
+        "success": false,
+        "reward": 0.1,
+        "tokens": 8291,
+        "duration_sec": 122.20620500466882,
+        "ir_queries": 0,
+        "llm_score": 0.4488429183349205
+      },
+      "deltas": {
+        "reward_delta": -0.30000000000000004,
+        "token_efficiency": 0.15835955740533955,
+        "time_efficiency": 0.5499158199039376,
+        "query_efficiency": 0.0
+      },
+      "winner": "baseline",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "elastic__elasticsearch-invariant_discovery-0ad5e2149099",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": false,
+        "reward": 0.0,
+        "tokens": 8469,
+        "duration_sec": 234.17625786537747,
+        "ir_queries": 0,
+        "llm_score": 0.2664133342902193
+      },
+      "treatment": {
+        "success": true,
+        "reward": 1.0,
+        "tokens": 10145,
+        "duration_sec": 104.54098205381509,
+        "ir_queries": 0,
+        "llm_score": 0.8755715823508776
+      },
+      "deltas": {
+        "reward_delta": 1.0,
+        "token_efficiency": -0.19789821702680363,
+        "time_efficiency": 0.5535799273301512,
+        "query_efficiency": 0.0
+      },
+      "winner": "treatment",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "microsoft__vscode-test_discovery_augmentation-681fbb3ca64b",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": false,
+        "reward": 0.5,
+        "tokens": 5437,
+        "duration_sec": 232.49807382868119,
+        "ir_queries": 0,
+        "llm_score": 0.3124664270008993
+      },
+      "treatment": {
+        "success": true,
+        "reward": 1.0,
+        "tokens": 6649,
+        "duration_sec": 144.39741457719634,
+        "ir_queries": 0,
+        "llm_score": 0.7828901386966576
+      },
+      "deltas": {
+        "reward_delta": 0.5,
+        "token_efficiency": -0.22291704984366378,
+        "time_efficiency": 0.37893070596534406,
+        "query_efficiency": 0.0
+      },
+      "winner": "treatment",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "grafana__grafana-bug_to_regression_test-57cd7de15761",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": true,
+        "reward": 1.0,
+        "tokens": 8118,
+        "duration_sec": 219.8981378409053,
+        "ir_queries": 0,
+        "llm_score": 0.8141314453091711
+      },
+      "treatment": {
+        "success": false,
+        "reward": 0.2,
+        "tokens": 5882,
+        "duration_sec": 105.53254862383207,
+        "ir_queries": 0,
+        "llm_score": 0.6019595858178115
+      },
+      "deltas": {
+        "reward_delta": -0.8,
+        "token_efficiency": 0.2754372998275437,
+        "time_efficiency": 0.5200843915277532,
+        "query_efficiency": 0.0
+      },
+      "winner": "baseline",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "kubernetes__kubernetes-api_contract_analysis-1d040e70c0bc",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": true,
+        "reward": 1.0,
+        "tokens": 10558,
+        "duration_sec": 303.9448836625861,
+        "ir_queries": 0,
+        "llm_score": 0.8203891068600601
+      },
+      "treatment": {
+        "success": false,
+        "reward": 0.4,
+        "tokens": 7196,
+        "duration_sec": 164.39663399557213,
+        "ir_queries": 0,
+        "llm_score": 0.28546579510021336
+      },
+      "deltas": {
+        "reward_delta": -0.6,
+        "token_efficiency": 0.31843152112142453,
+        "time_efficiency": 0.45912353577212583,
+        "query_efficiency": 0.0
+      },
+      "winner": "baseline",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "elastic__elasticsearch-downstream_impact-1657e83552af",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": false,
+        "reward": 0.0,
+        "tokens": 13583,
+        "duration_sec": 171.6979712093291,
+        "ir_queries": 0,
+        "llm_score": 0.4868358383641716
+      },
+      "treatment": {
+        "success": false,
+        "reward": 0.5,
+        "tokens": 8932,
+        "duration_sec": 126.6009948415601,
+        "ir_queries": 0,
+        "llm_score": 0.579467538305777
+      },
+      "deltas": {
+        "reward_delta": 0.5,
+        "token_efficiency": 0.34241331075609216,
+        "time_efficiency": 0.26265293672450035,
+        "query_efficiency": 0.0
+      },
+      "winner": "treatment",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "microsoft__vscode-safe_refactor-8fb7a9017c42",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": false,
+        "reward": 0.5,
+        "tokens": 14057,
+        "duration_sec": 212.3022224568473,
+        "ir_queries": 0,
+        "llm_score": 0.5540236173350374
+      },
+      "treatment": {
+        "success": true,
+        "reward": 1.0,
+        "tokens": 8882,
+        "duration_sec": 182.4846464132425,
+        "ir_queries": 0,
+        "llm_score": 0.9073398725590982
+      },
+      "deltas": {
+        "reward_delta": 0.5,
+        "token_efficiency": 0.36814398520310165,
+        "time_efficiency": 0.14044872304464703,
+        "query_efficiency": 0.0
+      },
+      "winner": "treatment",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "grafana__grafana-dependency_upgrade-0611d5797877",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": false,
+        "reward": 0.4,
+        "tokens": 9861,
+        "duration_sec": 172.85827992451786,
+        "ir_queries": 0,
+        "llm_score": 0.3470520292470258
+      },
+      "treatment": {
+        "success": false,
+        "reward": 0.5,
+        "tokens": 6056,
+        "duration_sec": 121.92204153823255,
+        "ir_queries": 0,
+        "llm_score": 0.3842344359478968
+      },
+      "deltas": {
+        "reward_delta": 0.09999999999999998,
+        "token_efficiency": 0.3858635026873542,
+        "time_efficiency": 0.29467051510941605,
+        "query_efficiency": 0.0
+      },
+      "winner": "tie",
+      "advantage_category": null,
+      "advantage_explanation": null
+    },
+    {
+      "task_id": "kubernetes__kubernetes-dead_code_elimination-ff64d479ddeb",
+      "sdlc_type": "bug_triage",
+      "baseline": {
+        "success": false,
+        "reward": 0.2,
+        "tokens": 12048,
+        "duration_sec": 191.59383196111418,
+        "ir_queries": 0,
+        "llm_score": 0.41381427671286797
+      },
+      "treatment": {
+        "success": false,
+        "reward": 0.3,
+        "tokens": 8189,
+        "duration_sec": 168.91109193520901,
+        "ir_queries": 0,
+        "llm_score": 0.344136883120952
+      },
+      "deltas": {
+        "reward_delta": 0.09999999999999998,
+        "token_efficiency": 0.32030212483399734,
+        "time_efficiency": 0.118389719510954,
+        "query_efficiency": 0.0
+      },
+      "winner": "tie",
+      "advantage_category": null,
+      "advantage_explanation": null
+    }
+  ],
+  "metric_comparisons": {
+    "success_rate": {
+      "metric_name": "success_rate",
+      "baseline": {
+        "mean": 0.3,
+        "std": 0.48304589153964794,
+        "median": 0.0,
+        "n": 10
+      },
+      "treatment": {
+        "mean": 0.4,
+        "std": 0.5163977794943223,
+        "median": 0.0,
+        "n": 10
+      },
+      "comparison": {
+        "absolute_diff": 0.10000000000000003,
+        "relative_diff": 0.3333333333333335,
+        "percent_improvement": 33.33333333333335
+      },
+      "statistical_test": {
+        "test_name": "welchs_t_test",
+        "p_value": 0.6547208460185769,
+        "is_significant": false,
+        "effect_size": 0.20000000000000007,
+        "interpretation": "Treatment does not significantly differ from baseline (t=0.447, p=0.6547, d=0.200)"
+      },
+      "confidence_interval": {
+        "lower": -0.3,
+        "estimate": 0.1,
+        "upper": 0.5
+      }
+    },
+    "reward": {
+      "metric_name": "reward",
+      "baseline": {
+        "mean": 0.5,
+        "std": 0.38873012632302,
+        "median": 0.45,
+        "n": 10
+      },
+      "treatment": {
+        "mean": 0.6,
+        "std": 0.3651483716701107,
+        "median": 0.5,
+        "n": 10
+      },
+      "comparison": {
+        "absolute_diff": 0.09999999999999998,
+        "relative_diff": 0.19999999999999996,
+        "percent_improvement": 19.999999999999996
+      },
+      "statistical_test": {
+        "test_name": "welchs_t_test",
+        "p_value": 0.5532299666570708,
+        "is_significant": false,
+        "effect_size": 0.26516504294495524,
+        "interpretation": "Treatment does not significantly differ from baseline (t=0.593, p=0.5532, d=0.265)"
+      },
+      "confidence_interval": {
+        "lower": -0.22000000000000003,
+        "estimate": 0.09999999999999999,
+        "upper": 0.39999999999999997
+      }
+    },
+    "tokens": {
+      "metric_name": "tokens",
+      "baseline": {
+        "mean": 10125.0,
+        "std": 2601.9385081127493,
+        "median": 9856.0,
+        "n": 10
+      },
+      "treatment": {
+        "mean": 7847.0,
+        "std": 1371.6197237815832,
+        "median": 8218.5,
+        "n": 10
+      },
+      "comparison": {
+        "absolute_diff": -2278.0,
+        "relative_diff": -0.22498765432098766,
+        "percent_improvement": -22.498765432098764
+      },
+      "statistical_test": {
+        "test_name": "welchs_t_test",
+        "p_value": 0.014320608826207115,
+        "is_significant": true,
+        "effect_size": -1.095279356628578,
+        "interpretation": "Treatment significantly differ from baseline (t=-2.449, p=0.0143, d=-1.095)"
+      },
+      "confidence_interval": {
+        "lower": -3548.4,
+        "estimate": -2278.0,
+        "upper": -936.2
+      }
+    },
+    "duration_sec": {
+      "metric_name": "duration_sec",
+      "baseline": {
+        "mean": 226.36209633904969,
+        "std": 42.390635412037504,
+        "median": 226.19810583479324,
+        "n": 10
+      },
+      "treatment": {
+        "mean": 136.87472283688066,
+        "std": 27.03067432712389,
+        "median": 127.17783211351914,
+        "n": 10
+      },
+      "comparison": {
+        "absolute_diff": -89.48737350216902,
+        "relative_diff": -0.39532843594155903,
+        "percent_improvement": -39.532843594155906
+      },
+      "statistical_test": {
+        "test_name": "welchs_t_test",
+        "p_value": 1.8160723147531144e-08,
+        "is_significant": true,
+        "effect_size": -2.5172165713306387,
+        "interpretation": "Treatment significantly differ from baseline (t=-5.629, p=0.0000, d=-2.517)"
+      },
+      "confidence_interval": {
+        "lower": -116.55558706855717,
+        "estimate": -89.48737350216902,
+        "upper": -60.41805436133956
+      }
+    },
+    "ir_queries": {
+      "metric_name": "ir_queries",
+      "baseline": {
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "n": 10
+      },
+      "treatment": {
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "n": 10
+      },
+      "comparison": {
+        "absolute_diff": 0.0,
+        "relative_diff": 0.0,
+        "percent_improvement": 0.0
+      },
+      "statistical_test": {
+        "test_name": "welchs_t_test",
+        "p_value": 1.0,
+        "is_significant": false,
+        "effect_size": null,
+        "interpretation": "Zero variance in both groups"
+      },
+      "confidence_interval": {
+        "lower": 0.0,
+        "estimate": 0.0,
+        "upper": 0.0
+      }
+    },
+    "llm_score": {
+      "metric_name": "llm_score",
+      "baseline": {
+        "mean": 0.5530614390487426,
+        "std": 0.22563923914846254,
+        "median": 0.5204297278496045,
+        "n": 10
+      },
+      "treatment": {
+        "mean": 0.6060015509123403,
+        "std": 0.23576491737040087,
+        "median": 0.5907135620617943,
+        "n": 10
+      },
+      "comparison": {
+        "absolute_diff": 0.052940111863597705,
+        "relative_diff": 0.09572193634518057,
+        "percent_improvement": 9.572193634518058
+      },
+      "statistical_test": {
+        "test_name": "welchs_t_test",
+        "p_value": 0.6079542686693282,
+        "is_significant": false,
+        "effect_size": 0.2294186897796858,
+        "interpretation": "Treatment does not significantly differ from baseline (t=0.513, p=0.6080, d=0.229)"
+      },
+      "confidence_interval": {
+        "lower": -0.14801997448142454,
+        "estimate": 0.052940111863597664,
+        "upper": 0.2623250531570422
+      }
+    }
+  },
+  "aggregate": {
+    "overall_winner": "tie",
+    "treatment_win_rate": 0.4,
+    "baseline_win_rate": 0.3,
+    "tie_rate": 0.3,
+    "significant_improvements": [],
+    "significant_regressions": [
+      "tokens",
+      "duration_sec"
+    ]
+  }
+}
