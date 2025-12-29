@@ -40,6 +40,22 @@ from app.ir_sdlc.metrics import (
     compute_map,
 )
 
+from app.ir_sdlc.dashboard_schema import (
+    IRSDLCTaskResult,
+    IRSDLCBenchmarkRun,
+    IRComparison,
+    IRRetrievalMetrics,
+    AgentExecutionMetrics,
+    LLMJudgeScore,
+    IRToolType,
+    SDLCTaskType as DashboardSDLCTaskType,
+)
+
+from app.ir_sdlc.dashboard_exporter import (
+    CodeContextBenchExporter,
+    generate_run_id,
+)
+
 __all__ = [
     # Task Types
     "SDLCTaskType",
@@ -67,4 +83,14 @@ __all__ = [
     "compute_mrr",
     "compute_ndcg",
     "compute_map",
+    # Dashboard Integration
+    "IRSDLCTaskResult",
+    "IRSDLCBenchmarkRun",
+    "IRComparison",
+    "IRRetrievalMetrics",
+    "AgentExecutionMetrics",
+    "LLMJudgeScore",
+    "IRToolType",
+    "CodeContextBenchExporter",
+    "generate_run_id",
 ]
