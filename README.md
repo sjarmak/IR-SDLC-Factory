@@ -6,6 +6,14 @@ A comprehensive benchmark framework for evaluating **information retrieval (IR) 
 
 ---
 
+## 📚 Documentation
+
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md): System architecture and component overview
+- [DEVELOPMENT.md](docs/DEVELOPMENT.md): Development, testing, and extension guide
+- [MCP_INTEGRATION.md](docs/MCP_INTEGRATION.md): Model Context Protocol (MCP) integration instructions
+
+See also the [docs/](docs/) directory for additional documentation.
+
 ## ✨ Key Features
 
 - **Enterprise-Scale Repositories**: Target repos with 100K+ files across Python, JavaScript, TypeScript, Java, Go, Rust, and C++

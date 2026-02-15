@@ -200,13 +200,20 @@ class IRTask:
         if data.get("ground_truth"):
             ground_truth = GroundTruth.from_dict(data["ground_truth"])
 
+        # Use 'query' if present, else fallback to 'instruction' for backward compatibility
+        query = data.get("query")
+        if query is None:
+            query = data.get("instruction")
+        if query is None:
+            raise KeyError("Task is missing both 'query' and 'instruction' fields.")
+
         return cls(
             task_id=data["task_id"],
             task_type=data["task_type"],
             repo_name=data["repo_name"],
             repo_url=data["repo_url"],
             commit_hash=data["commit_hash"],
-            query=data["query"],
+            query=query,
             context=data.get("context", {}),
             ground_truth=ground_truth,
             difficulty=data.get("difficulty", "medium"),

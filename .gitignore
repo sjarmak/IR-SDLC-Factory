@@ -58,6 +58,8 @@ Thumbs.db
 repos/
 results/
 output/
+outputs/eval_*/
+outputs/harbor_*/
 harbor_tasks/
 logs/
 testbed/
