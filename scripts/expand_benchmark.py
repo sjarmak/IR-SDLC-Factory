@@ -347,7 +347,7 @@ def expand_benchmark(
     
     print("\n=== IR Focus Analysis ===")
     for rec in ir_focus["recommendations"]:
-        print(f"  • {rec}")
+        print(f"  - {rec}")
     
     # Collect new tasks
     new_tasks = []
@@ -496,7 +496,7 @@ if __name__ == "__main__":
         print("\n=== SDLC Coverage Analysis ===")
         coverage = analyze_sdlc_coverage(tasks)
         for phase, info in coverage.items():
-            status = "✓" if info["task_count"] > 0 else "✗"
+            status = "Y" if info["task_count"] > 0 else "N"
             print(f"  {status} {phase}: {info['task_count']} tasks")
             if info["types_missing"]:
                 print(f"      Missing: {', '.join(info['types_missing'])}")
@@ -504,13 +504,13 @@ if __name__ == "__main__":
         print("\n=== IR Focus Analysis ===")
         ir_focus = analyze_ir_focus(tasks)
         for task_type, info in ir_focus["ir_showcasing_coverage"].items():
-            status = "✓" if info["has_coverage"] else "✗"
+            status = "Y" if info["has_coverage"] else "N"
             print(f"  {status} {task_type}: {info['count']} tasks")
             print(f"      IR benefit: {info['ir_benefit']}")
         
         print("\n=== Recommendations ===")
         for rec in ir_focus["recommendations"]:
-            print(f"  • {rec}")
+            print(f"  - {rec}")
     else:
         result = expand_benchmark(
             input_file=input_path,

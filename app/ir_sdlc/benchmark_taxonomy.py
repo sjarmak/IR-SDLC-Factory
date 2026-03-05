@@ -12,12 +12,12 @@ Key Design Principles:
 5. Dual Purpose - Works for both ML training and product evaluation
 
 Gap Analysis from CACM Blog:
-- ✓ Representativeness (enterprise-scale repos)
-- ✓ Diversity (multiple languages, industries, task types)
-- ✓ Headroom (graduated difficulty, expert-level tasks)
-- ✓ Contamination resistance (refresh pipeline, version-pinned tasks)
-- ✓ Robust scoring (human-aligned rubrics, not just test pass/fail)
-- ✓ SDLC breadth (all phases covered)
+- Representativeness (enterprise-scale repos)
+- Diversity (multiple languages, industries, task types)
+- Headroom (graduated difficulty, expert-level tasks)
+- Contamination resistance (refresh pipeline, version-pinned tasks)
+- Robust scoring (human-aligned rubrics, not just test pass/fail)
+- SDLC breadth (all phases covered)
 """
 
 from dataclasses import dataclass, field
@@ -756,8 +756,8 @@ def export_taxonomy():
         print(f"\n## {category.upper()}")
         print("-" * 40)
         for name, tt in tasks:
-            auto = "✓" if tt.can_be_automated else "✗"
-            enterprise = "✓" if tt.enterprise_relevant else "✗"
+            auto = "Y" if tt.can_be_automated else "N"
+            enterprise = "Y" if tt.enterprise_relevant else "N"
             print(f"  {name}")
             print(f"    Phase: {tt.sdlc_phase.value}")
             print(f"    Automated: {auto} | Enterprise: {enterprise}")

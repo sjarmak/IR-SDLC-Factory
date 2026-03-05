@@ -1,4 +1,4 @@
-# 🔍 IR-SDLC-Factory
+# IR-SDLC-Factory
 
 **Information Retrieval Evaluation for Enterprise SDLC Tasks**
 
@@ -6,7 +6,7 @@ A comprehensive benchmark framework for evaluating **information retrieval (IR) 
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - [ARCHITECTURE.md](docs/ARCHITECTURE.md): System architecture and component overview
 - [DEVELOPMENT.md](docs/DEVELOPMENT.md): Development, testing, and extension guide
@@ -14,7 +14,7 @@ A comprehensive benchmark framework for evaluating **information retrieval (IR) 
 
 See also the [docs/](docs/) directory for additional documentation.
 
-## ✨ Key Features
+## Key Features
 
 - **Enterprise-Scale Repositories**: Target repos with 100K+ files across Python, JavaScript, TypeScript, Java, Go, Rust, and C++
 - **10 SDLC Task Types**: Bug triage, code review, dependency analysis, architecture understanding, security audit, refactoring, test coverage, documentation linking, and more
@@ -24,7 +24,7 @@ See also the [docs/](docs/) directory for additional documentation.
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 # Clone the repository
@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Collect Enterprise-Scale Repositories
 
@@ -93,7 +93,7 @@ harbor jobs start -p ./harbor_tasks/ir-sdlc-bench -a your-agent -m your-model
 
 ---
 
-## 📊 Supported SDLC Task Types
+## Supported SDLC Task Types
 
 | Task Type | Description | Ground Truth |
 |-----------|-------------|--------------|
@@ -110,7 +110,7 @@ harbor jobs start -p ./harbor_tasks/ir-sdlc-bench -a your-agent -m your-model
 
 ---
 
-## 📈 IR Metrics
+## IR Metrics
 
 ### Standard IR Metrics
 - **Precision@K**: Fraction of retrieved items that are relevant
@@ -129,7 +129,7 @@ harbor jobs start -p ./harbor_tasks/ir-sdlc-bench -a your-agent -m your-model
 
 ---
 
-## 🔌 Integrating Your IR Tool
+## Integrating Your IR Tool
 
 Create a custom IR tool by implementing the `IRToolInterface`:
 
@@ -163,22 +163,22 @@ register_ir_tool("my-ir-tool", MyIRTool)
 
 ---
 
-## 🐳 Harbor Integration
+## Harbor Integration
 
 IR-SDLC-Factory generates fully Harbor-compatible task directories:
 
 ```
 task_directory/
-├── task.toml              # Task metadata
-├── instruction.md         # Task description
-├── ground_truth.json      # Expected retrieval results
-├── environment/
-│   └── Dockerfile         # Evaluation environment
-├── solution/
-│   └── solve.sh          # Reference solution
-└── tests/
-    ├── test.sh           # Evaluation script
-    └── evaluate_retrieval.py  # Metric computation
+|-- task.toml              # Task metadata
+|-- instruction.md         # Task description
+|-- ground_truth.json      # Expected retrieval results
+|-- environment/
+|   |-- Dockerfile         # Evaluation environment
+|-- solution/
+|   |-- solve.sh          # Reference solution
+|-- tests/
+    |-- test.sh           # Evaluation script
+    |-- evaluate_retrieval.py  # Metric computation
 ```
 
 ### Harbor Task Format
@@ -201,33 +201,33 @@ difficulty = "medium"
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 IR-SDLC-Factory/
-├── app/
-│   ├── __init__.py
-│   ├── main.py                    # CLI entry point
-│   ├── ir_sdlc/
-│   │   ├── __init__.py
-│   │   ├── data_structures.py     # Core data models
-│   │   ├── task_types.py          # SDLC task type definitions
-│   │   ├── metrics.py             # IR evaluation metrics
-│   │   ├── harbor_adapter.py      # Harbor format generator
-│   │   ├── ir_tool_interface.py   # Tool abstraction layer
-│   │   └── evaluation_runner.py   # Evaluation orchestration
-│   └── model/                     # LLM model interfaces
-├── data_collection/
-│   └── collect/
-│       └── collect_large_repos.py # Repository collector
-├── requirements.txt
-├── LICENSE
-└── README.md
+|-- app/
+|   |-- __init__.py
+|   |-- main.py                    # CLI entry point
+|   |-- ir_sdlc/
+|   |   |-- __init__.py
+|   |   |-- data_structures.py     # Core data models
+|   |   |-- task_types.py          # SDLC task type definitions
+|   |   |-- metrics.py             # IR evaluation metrics
+|   |   |-- harbor_adapter.py      # Harbor format generator
+|   |   |-- ir_tool_interface.py   # Tool abstraction layer
+|   |   |-- evaluation_runner.py   # Evaluation orchestration
+|   |-- model/                     # LLM model interfaces
+|-- data_collection/
+|   |-- collect/
+|   |   |-- collect_large_repos.py # Repository collector
+|-- requirements.txt
+|-- LICENSE
+|-- README.md
 ```
 
 ---
 
-## 🛠️ CLI Reference
+## CLI Reference
 
 ### `evaluate` (alias: `eval`)
 Evaluate an IR tool on benchmark tasks.
@@ -285,7 +285,7 @@ python -m app.main collect-repos \
 
 ---
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
 This project is adapted from and builds upon [SWE-Factory](https://github.com/SWE-Factory/SWE-Factory), an automated factory for GitHub Issue Resolution Training Data and Evaluation Benchmarks.
 
@@ -308,13 +308,13 @@ We also acknowledge the following foundational works:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 

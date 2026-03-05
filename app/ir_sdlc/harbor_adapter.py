@@ -313,16 +313,16 @@ class HarborTaskGenerator:
 
     Creates the following structure:
     task_id/
-    ├── task.toml
-    ├── instruction.md
-    ├── ground_truth.json
-    ├── environment/
-    │   └── Dockerfile
-    ├── solution/
-    │   └── solve.sh
-    └── tests/
-        ├── test.sh
-        └── evaluate_retrieval.py
+    |-- task.toml
+    |-- instruction.md
+    |-- ground_truth.json
+    |-- environment/
+    |   |-- Dockerfile
+    |-- solution/
+    |   |-- solve.sh
+    |-- tests/
+        |-- test.sh
+        |-- evaluate_retrieval.py
     """
 
     def __init__(self, config: Optional[HarborConfig] = None):

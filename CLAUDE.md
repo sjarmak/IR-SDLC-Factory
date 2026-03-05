@@ -66,9 +66,9 @@ Names are for the next agent or developer reading your code months later.
 
 **CRITICAL RULE:** Do NOT create random markdown files in the root directory.
 
-- ✅ **DO:** `docs/`, `history/`, `.beads/`, `src/`, `tests/`
-- ❌ **DON'T:** `PLAN.md`, `STATUS.md`, `NOTES.md`, `IMPLEMENTATION.md`, `TODO.md` in root
-- ❌ **DON'T:** `MIGRATION_STATUS.md`, `PROGRESS.md`, `SESSION_SUMMARY.md` in root
+- **DO:** `docs/`, `history/`, `.beads/`, `src/`, `tests/`
+- **DON'T:** `PLAN.md`, `STATUS.md`, `NOTES.md`, `IMPLEMENTATION.md`, `TODO.md` in root
+- **DON'T:** `MIGRATION_STATUS.md`, `PROGRESS.md`, `SESSION_SUMMARY.md` in root
 
 **Where things go:**
 - **Permanent documentation:** `docs/` (ARCHITECTURE.md, DEVELOPMENT.md, API.md)
@@ -83,20 +83,20 @@ If you feel the urge to create a markdown file in root, STOP. Either:
 
 ## Bead Closure: Only When Work is Actually Complete
 
-**⚠️ DO NOT close beads prematurely.** Only close a bead when the work is FULLY DONE and tested with **deterministic, specific tests** for the exact requirements. Closing beads early means:
-- ❌ Work appears complete to other agents but is actually incomplete
-- ❌ The next agent wastes time discovering the work isn't done
-- ❌ Learning systems learn from incomplete work (bad signal)
+**IMPORTANT: DO NOT close beads prematurely.** Only close a bead when the work is FULLY DONE and tested with **deterministic, specific tests** for the exact requirements. Closing beads early means:
+- Work appears complete to other agents but is actually incomplete
+- The next agent wastes time discovering the work isn't done
+- Learning systems learn from incomplete work (bad signal)
 
 **What "complete" means (ALL required):**
-- ✅ **Specific test**: A deterministic test that validates the EXACT behavior required (not generic tests)
-- ✅ **Unit tests**: Any new code changes have accompanying unit tests to prevent regressions
-- ✅ **Tests NOT mocked**: Use real implementations unless requirement explicitly specifies mocking
-- ✅ **All tests pass**: Run your test suite and verify EVERY test passes
-- ✅ **Code committed**: All code changes committed to git
-- ✅ **No known bugs**: No open issues or TODOs from this work
-- ✅ **Documentation**: Updated if functionality/API changed
-- ✅ **Ready to hand off**: Next agent can pick this up and immediately use it
+- **Specific test**: A deterministic test that validates the EXACT behavior required (not generic tests)
+- **Unit tests**: Any new code changes have accompanying unit tests to prevent regressions
+- **Tests NOT mocked**: Use real implementations unless requirement explicitly specifies mocking
+- **All tests pass**: Run your test suite and verify EVERY test passes
+- **Code committed**: All code changes committed to git
+- **No known bugs**: No open issues or TODOs from this work
+- **Documentation**: Updated if functionality/API changed
+- **Ready to hand off**: Next agent can pick this up and immediately use it
 
 **Testing requirement details:**
 - Each bead MUST have a test that proves its specific requirement is met
@@ -149,13 +149,13 @@ If you feel the urge to create a markdown file in root, STOP. Either:
     ```
 
 **Key principles:** 
-- ✅ Create a **specific test for the requirement** (not generic tests)
-- ✅ Use real implementations unless requirement explicitly says to mock
-- ✅ Write unit tests for new code to prevent regressions
-- ✅ Only close when tests PROVE the requirement is met
-- ✅ Keep beads in `in_progress` if more work remains
-- ❌ Don't assume generic test passing = bead complete
-- ❌ Don't close a bead to "finish" it if work is incomplete
+- Create a **specific test for the requirement** (not generic tests)
+- Use real implementations unless requirement explicitly says to mock
+- Write unit tests for new code to prevent regressions
+- Only close when tests PROVE the requirement is met
+- Keep beads in `in_progress` if more work remains
+- Don't assume generic test passing = bead complete
+- Don't close a bead to "finish" it if work is incomplete
 
 ## Landing the Plane
 
@@ -295,23 +295,23 @@ AI assistants often create planning and design documents during development:
 - Only access `history/` when explicitly asked to review past planning
 
 **Benefits:**
-- ✅ Clean repository root
-- ✅ Clear separation between ephemeral and permanent documentation
-- ✅ Easy to exclude from version control if desired
-- ✅ Preserves planning history for archeological research
-- ✅ Reduces noise when browsing the project
+- Clean repository root
+- Clear separation between ephemeral and permanent documentation
+- Easy to exclude from version control if desired
+- Preserves planning history for archeological research
+- Reduces noise when browsing the project
 
 ### Important Rules
 
-- ✅ Use bd for ALL task tracking
-- ✅ Always use `--json` flag for programmatic use
-- ✅ Link discovered work with `discovered-from` dependencies
-- ✅ Check `bd ready` before asking "what should I work on?"
-- ✅ Store AI planning docs in `history/` directory
-- ❌ Do NOT create markdown TODO lists
-- ❌ Do NOT use external issue trackers
-- ❌ Do NOT duplicate tracking systems
-- ❌ Do NOT clutter repo root with planning documents
+- Use bd for ALL task tracking
+- Always use `--json` flag for programmatic use
+- Link discovered work with `discovered-from` dependencies
+- Check `bd ready` before asking "what should I work on?"
+- Store AI planning docs in `history/` directory
+- Do NOT create markdown TODO lists
+- Do NOT use external issue trackers
+- Do NOT duplicate tracking systems
+- Do NOT clutter repo root with planning documents
 
 ## Agent Best Practices
 
